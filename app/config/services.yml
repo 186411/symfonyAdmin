@@ -1,0 +1,41 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    admin.category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category }
+            
+    admin.blog_post:
+        class: AppBundle\Admin\BlogPostAdmin
+        arguments: [~, AppBundle\Entity\BlogPost, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Blog post }
+    admin.news:
+        class: AppBundle\Admin\NewsAdmin
+        arguments: [~, AppBundle\Entity\News, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: News }
+    admin.news.type:
+        class: AppBundle\Admin\NewsTypeAdmin
+        arguments: [~, AppBundle\Entity\NewsType, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: NewsType }
+    
+    qychen.datagrid:
+          class: AppBundle\Block\Service\DatagridBlockService
+          arguments: [ "sonata.block.service.DatagridBlock", @templating, @doctrine.orm.entity_manager]
+          tags:
+              - { name:  sonata.block  }
+              
+    qychen.show:
+        class: AppBundle\Block\Service\Qychen
+        tags:
+              - { name: kernel.event_listener, event: sonata.block.event.Qychen, method: show }

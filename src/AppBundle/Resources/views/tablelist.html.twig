@@ -1,0 +1,25 @@
+{# empty Twig template #}
+{% extends 'SonataBlockBundle:Block:block_base.html.twig' %}
+
+
+{% block block %}
+<div class = "sonata-news-block-recent-post box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            <i class="fa fa-pencil"></i> {{settings.target}}
+        </h3>
+    </div>
+    <div class="box-body">
+        <div class="sonata-blog-post-container list-group">
+        {% for d in data %}
+            <a class="list-group-item" href="">{{ d }}</a>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="box-footer">
+       <a href="/admin/app/{{ settings.target|lower }}/list" class="btn btn-primary btn-block"><i class="fa fa-list"></i>  查看全部</a>
+    </div>
+</div>
+{% endblock %}
+
+
